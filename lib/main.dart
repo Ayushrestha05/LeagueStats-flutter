@@ -11,7 +11,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData.dark().copyWith(),
+      theme: ThemeData.dark().copyWith(
+        scaffoldBackgroundColor: Color(0xFF151723),
+        primaryColor: Color(0xFFF08080),
+      ),
       initialRoute: SearchPage.id,
       routes: {
         SearchPage.id: (context) => SearchPage(),
@@ -19,3 +22,10 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+//Blue dongker #000080
+//Maroon #800000
+//Dark Red #8B0000
+//Cyan #00FFFF
+//Light Coral #F08080
+//Tomato #FF6347
