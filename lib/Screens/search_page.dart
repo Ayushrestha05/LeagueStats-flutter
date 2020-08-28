@@ -79,7 +79,10 @@ class _SearchPageState extends State<SearchPage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Summoner(),
+                          builder: (context) => Summoner(
+                            selectedRegion: selectedRegion,
+                            summonerName: value,
+                          ),
                         ),
                       );
                     },
