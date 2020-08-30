@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:league_stats_flutter/Components/champion_data.dart';
 import 'package:league_stats_flutter/Components/networking.dart';
 
 class Summoner extends StatefulWidget {
