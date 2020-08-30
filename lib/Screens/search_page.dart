@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:league_stats_flutter/Components/champion_data.dart';
+import 'package:league_stats_flutter/Screens/champion_grid.dart';
 import 'package:league_stats_flutter/Screens/summoner_details.dart';
 
 class SearchPage extends StatefulWidget {
@@ -9,7 +11,6 @@ class SearchPage extends StatefulWidget {
 
 class _SearchPageState extends State<SearchPage> {
   var selectedRegion = 'NA';
-
   List<DropdownMenuItem> getDropdownItems() {
     List regionList = [
       'NA',
@@ -42,7 +43,30 @@ class _SearchPageState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      drawer: Drawer(),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            DrawerHeader(child: Text("League")),
+            ListTile(
+              title: Text('Search Summoner'),
+            ),
+            ListTile(
+                title: Text('Champions'),
+                onTap: () async {
+                  var data = await ChampionData().data();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ChampionGrid(
+                        data: data,
+                      ),
+                    ),
+                  );
+                })
+          ],
+        ),
+      ),
       body: Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
