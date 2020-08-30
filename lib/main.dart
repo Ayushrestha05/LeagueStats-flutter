@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:league_stats_flutter/Screens/search_page.dart';
 
 void main() {
@@ -9,6 +10,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown
+    ]); //Sets the screen to be only in portrait mode.
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData.dark().copyWith(
