@@ -20,11 +20,15 @@ class _ChampionGridState extends State<ChampionGrid> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(),
       body: CustomScrollView(
         slivers: [
           SliverAppBar(),
           SliverGrid.count(
+            childAspectRatio: 0.9,
             crossAxisCount: 3,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
             children: gridData(),
           )
         ],
@@ -38,8 +42,20 @@ class _ChampionGridState extends State<ChampionGrid> {
     List<Widget> gridList = [];
     for (var i in decodeData['data'].keys) {
       gridList.add(
-        Column(
-          children: [Container(), Text(i)],
+        RawMaterialButton(
+          onPressed: () {
+            print('i was pressed in $i');
+          },
+          child: Column(
+            children: [
+              Container(
+                child: Image(
+                  image: AssetImage('resources/images/champion/$i.png'),
+                ),
+              ),
+              Text(i)
+            ],
+          ),
         ),
       );
     }
