@@ -23,7 +23,9 @@ class _ChampionGridState extends State<ChampionGrid> {
       drawer: Drawer(),
       body: CustomScrollView(
         slivers: [
-          SliverAppBar(),
+          SliverAppBar(
+            floating: true,
+          ),
           SliverGrid.count(
             childAspectRatio: 0.9,
             crossAxisCount: 3,
