@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Color(0xFF151723),
         primaryColor: Color(0xFFF08080),
       ),
-      initialRoute: ChampDetail.id,
+      initialRoute: SearchPage.id,
       routes: {
         SearchPage.id: (context) => SearchPage(),
         ChampDetail.id: (context) => ChampDetail(),
