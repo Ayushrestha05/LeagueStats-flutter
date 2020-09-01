@@ -1,15 +1,25 @@
+import 'dart:convert';
+import 'package:league_stats_flutter/Components/RawMaterial.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 
 class ChampDetail extends StatefulWidget {
   static final String id = 'champion_detail';
+  final data;
+  final champion;
+  ChampDetail({this.data, this.champion});
+
   @override
   _ChampDetailState createState() => _ChampDetailState();
 }
 
 class _ChampDetailState extends State<ChampDetail> {
   int currentLVL = 1;
+
   @override
   Widget build(BuildContext context) {
+    var decodeData = jsonDecode(widget.data);
+    String champ = widget.champion;
     return Scaffold(
       drawer: Drawer(),
       body: CustomScrollView(
@@ -27,7 +37,7 @@ class _ChampDetailState extends State<ChampDetail> {
                   Expanded(
                     child: Center(
                       child: Text(
-                        'Aatrox',
+                        champ,
                         style: TextStyle(fontSize: 50),
                       ),
                     ),
@@ -35,7 +45,7 @@ class _ChampDetailState extends State<ChampDetail> {
                   Expanded(
                     child: Image(
                       image: AssetImage(
-                        'resources/images/champion/loading/Aatrox_0.jpg',
+                        'resources/images/champion/loading/${champ}_0.jpg',
                       ),
                       height: 300,
                     ),
@@ -62,32 +72,7 @@ class _ChampDetailState extends State<ChampDetail> {
               height: 300,
               child: ListView(
                 scrollDirection: Axis.horizontal,
-                children: [
-                  Image(
-                    image: AssetImage(
-                        'resources/images/champion/loading/Aatrox_1.jpg'),
-                  ),
-                  Image(
-                    image: AssetImage(
-                        'resources/images/champion/loading/Aatrox_2.jpg'),
-                  ),
-                  Image(
-                    image: AssetImage(
-                        'resources/images/champion/loading/Aatrox_3.jpg'),
-                  ),
-                  Image(
-                    image: AssetImage(
-                        'resources/images/champion/loading/Aatrox_7.jpg'),
-                  ),
-                  Image(
-                    image: AssetImage(
-                        'resources/images/champion/loading/Aatrox_8.jpg'),
-                  ),
-                  Image(
-                    image: AssetImage(
-                        'resources/images/champion/loading/Aatrox_9.jpg'),
-                  ),
-                ],
+                children: getSkinImage(),
               ),
             ),
           ),
@@ -118,8 +103,7 @@ class _ChampDetailState extends State<ChampDetail> {
                     SizedBox(
                       height: 20,
                     ),
-                    Text(
-                        'Once honored defenders of Shurima against the Void, Aatrox and his brethren would eventually become an even greater threat to Runeterra, and were defeated only by cunning mortal sorcery. But after centuries of imprisonment, Aatrox was the first to find freedom once more, corrupting and transforming those foolish enough to try and wield the magical weapon that contained his essence. Now, with stolen flesh, he walks Runeterra in a brutal approximation of his previous form, seeking an apocalyptic and long overdue vengeance.'),
+                    Text(decodeData['data']['$champ']['lore']),
                   ],
                 ),
               ),
@@ -152,27 +136,7 @@ class _ChampDetailState extends State<ChampDetail> {
                         fontSize: 30,
                       ),
                     ),
-                    GridView.count(
-                      padding: EdgeInsets.all(10),
-                      primary: false,
-                      shrinkWrap: true,
-                      crossAxisCount: 2,
-                      childAspectRatio: 10,
-                      children: [
-                        Text('HP : ${580 - 90 + currentLVL * 90}'),
-                        Text('MP : ${0 + currentLVL * 0}'),
-                        Text(
-                            'HP Regen (Per Second): ${3 - 1 + currentLVL * 1}'),
-                        Text('MP Regen (Per Second): ${0 + currentLVL * 0}'),
-                        Text('Armor : ${38 - 3.25 + currentLVL * 3.25}'),
-                        Text('Spell Block: ${32.1 - 1.25 + currentLVL * 1.25}'),
-                        Text('ATK Dmg: ${60 - 5 + currentLVL * 5}'),
-                        Text('ATK Speed: ${0.651 - 2.5 + currentLVL * 2.5}'),
-                        Text('Move Speed: 345'),
-                        Text('ATK Range: 175'),
-                        Text('Critical Hit : 0'),
-                      ],
-                    ),
+                    getChampStats(),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
@@ -186,25 +150,35 @@ class _ChampDetailState extends State<ChampDetail> {
                             fontSize: 30,
                           ),
                         ),
-                        SliderTheme(
-                          data: SliderTheme.of(context).copyWith(
-                            activeTrackColor: Color(0xDDF08080),
-                            inactiveTrackColor: Color(0xFFE9E9EC),
-                            overlayColor: Color(0x55F08080),
-                            thumbColor: Color(0xFFF08080),
+                        Container(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              RoundIcon(
+                                icon: Icon(AntDesign.minus),
+                                onPressed: () {
+                                  if (currentLVL > 1) {
+                                    currentLVL--;
+                                  }
+                                  setState(() {});
+                                },
+                              ),
+                              Text(
+                                currentLVL.toString(),
+                                style: TextStyle(fontSize: 20),
+                              ),
+                              RoundIcon(
+                                icon: Icon(AntDesign.plus),
+                                onPressed: () {
+                                  if (currentLVL < 18) {
+                                    currentLVL++;
+                                  }
+                                  setState(() {});
+                                },
+                              ),
+                            ],
                           ),
-                          child: Slider(
-                            value: currentLVL.toDouble(),
-                            min: 1.0,
-                            max: 18.0,
-                            //divisions: 18,
-                            onChanged: (double newValue) {
-                              setState(() {
-                                currentLVL = newValue.toInt();
-                              });
-                            },
-                          ),
-                        ),
+                        )
                       ],
                     ),
                   ],
@@ -372,6 +346,80 @@ class _ChampDetailState extends State<ChampDetail> {
           ),
         ],
       ),
+    );
+  }
+
+  List<Widget> getSkinImage() {
+    String champ = widget.champion;
+    List<Widget> imageSkinList = [];
+    for (var i = 1; i <= 50; i++) {
+      try {
+        imageSkinList.add(
+          Image(
+            image:
+                AssetImage('resources/images/champion/loading/${champ}_$i.jpg'),
+          ),
+        );
+      } catch (e) {
+        print("noooo");
+      }
+    }
+
+    return imageSkinList;
+  }
+
+  Widget getChampStats() {
+    var decodeData = jsonDecode(widget.data);
+    String champ = widget.champion;
+
+    var baseHP = decodeData['data']['$champ']['stats']['hp'];
+    var hpPerLevel = decodeData['data']['$champ']['stats']['hpperlevel'];
+    var baseMP = decodeData['data']['$champ']['stats']['mp'];
+    var mpPerLevel = decodeData['data']['$champ']['stats']['mpperlevel'];
+    var moveSpeed = decodeData['data']['$champ']['stats']['movespeed'];
+    var armor = decodeData['data']['$champ']['stats']['armor'];
+    var armorPerLevel = decodeData['data']['$champ']['stats']['armorperlevel'];
+    var spellBlock = decodeData['data']['$champ']['stats']['spellblock'];
+    var spellBlockPerLevel =
+        decodeData['data']['$champ']['stats']['spellblockperlevel'];
+    var atkRange = decodeData['data']['$champ']['stats']['attackrange'];
+    var hpRegen = decodeData['data']['$champ']['stats']['hpregen'];
+    var hpRegenPerLevel =
+        decodeData['data']['$champ']['stats']['hpregenperlevel'];
+    var mpRegen = decodeData['data']['$champ']['stats']['mpregen'];
+    var mpRegenPerLevel =
+        decodeData['data']['$champ']['stats']['mpregenperlevel'];
+    var crit = decodeData['data']['$champ']['stats']['crit'];
+    var critPerLevel = decodeData['data']['$champ']['stats']['critperlevel'];
+    var atkDamage = decodeData['data']['$champ']['stats']['attackdamage'];
+    var atkDamagePerLevel =
+        decodeData['data']['$champ']['stats']['attackdamageperlevel'];
+    var atkSpeed = decodeData['data']['$champ']['stats']['attackspeed'];
+    var atkSpeedPerLevel =
+        decodeData['data']['$champ']['stats']['attackspeedperlevel'];
+
+    return GridView.count(
+      padding: EdgeInsets.all(10),
+      primary: false,
+      shrinkWrap: true,
+      crossAxisCount: 2,
+      childAspectRatio: 10,
+      children: [
+        Text('HP : ${baseHP + (currentLVL - 1) * hpPerLevel}'),
+        Text('MP : ${baseMP + (currentLVL - 1) * mpPerLevel}'),
+        Text(
+            'HP Regen (Per Second): ${hpRegen + (currentLVL - 1) * hpRegenPerLevel}'),
+        Text(
+            'MP Regen (Per Second): ${mpRegen + (currentLVL - 1) * mpRegenPerLevel}'),
+        Text('Armor : ${armor + (currentLVL - 1) * armorPerLevel}'),
+        Text(
+            'Spell Block: ${spellBlock + (currentLVL - 1) * spellBlockPerLevel}'),
+        Text('ATK Dmg: ${atkDamage + (currentLVL - 1) * atkDamagePerLevel}'),
+        Text('ATK Speed: ${atkSpeed + (currentLVL - 1) * atkSpeedPerLevel}'),
+        Text('Move Speed: $moveSpeed'),
+        Text('ATK Range: $atkRange'),
+        Text('Critical Hit : ${crit + (currentLVL - 1) * critPerLevel}'),
+      ],
     );
   }
 }
