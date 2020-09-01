@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:league_stats_flutter/Screens/champion_detail.dart';
 
 class ChampionGrid extends StatefulWidget {
   final data;
@@ -47,6 +48,15 @@ class _ChampionGridState extends State<ChampionGrid> {
         RawMaterialButton(
           onPressed: () {
             print('i was pressed in $i');
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ChampDetail(
+                  data: widget.data,
+                  champion: i,
+                ),
+              ),
+            );
           },
           child: Column(
             children: [
