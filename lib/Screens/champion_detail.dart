@@ -208,20 +208,20 @@ class _ChampDetailState extends State<ChampDetail> {
                 ),
                 Column(
                   children: [
-                    Text('Deathbringer Stance'),
+                    Text('${decodeData['data'][champ]['passive']['name']}'),
                     Row(
                       children: [
                         Expanded(
                           flex: 1,
                           child: Image(
                             image: AssetImage(
-                                'resources/images/champion/passive/Aatrox_Passive.png'),
+                                'resources/images/champion/passive/${decodeData['data'][champ]['passive']['image']['full']}'),
                           ),
                         ),
                         Expanded(
                           flex: 4,
                           child: Text(
-                              'Periodically, Aatrox\'s next basic attack deals bonus <physicalDamage>physical damage'),
+                              '${decodeData['data'][champ]['passive']['description']}'),
                         )
                       ],
                     ),
@@ -237,104 +237,48 @@ class _ChampDetailState extends State<ChampDetail> {
                   textAlign: TextAlign.left,
                   style: TextStyle(fontSize: 20),
                 ),
-                Column(
-                  children: [
-                    Text('The Darkin Blade'),
-                    Row(
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: Image(
-                            image: AssetImage(
-                                'resources/images/champion/spell/AatroxQ.png'),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 4,
-                          child: Text(
-                              "Aatrox slams his greatsword down, dealing physical damage. He can swing three times, each with a different area of effect."),
-                        )
-                      ],
-                    ),
-                  ],
+                AbilitySpells(
+                  spellName: decodeData['data'][champ]['spells'][0]['name'],
+                  spellImage: decodeData['data'][champ]['spells'][0]['image']
+                      ['full'],
+                  spellDesc: decodeData['data'][champ]['spells'][0]
+                      ['description'],
                 ),
                 Divider(
                   thickness: 2,
                   indent: 30,
                   endIndent: 30,
                 ),
-                Column(
-                  children: [
-                    Text('Infernal Chains'),
-                    Row(
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: Image(
-                            image: AssetImage(
-                                'resources/images/champion/spell/AatroxW.png'),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 4,
-                          child: Text(
-                              "Aatrox smashes the ground, dealing damage to the first enemy hit. Champions and large monsters have to leave the impact area quickly or they will be dragged to the center and take the damage again."),
-                        )
-                      ],
-                    ),
-                  ],
+                AbilitySpells(
+                  spellName: decodeData['data'][champ]['spells'][1]['name'],
+                  spellImage: decodeData['data'][champ]['spells'][1]['image']
+                      ['full'],
+                  spellDesc: decodeData['data'][champ]['spells'][1]
+                      ['description'],
                 ),
                 Divider(
                   thickness: 2,
                   indent: 30,
                   endIndent: 30,
                 ),
-                Column(
-                  children: [
-                    Text('Umbral Dash'),
-                    Row(
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: Image(
-                            image: AssetImage(
-                                'resources/images/champion/spell/AatroxE.png'),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 4,
-                          child: Text(
-                              "Passively, Aatrox heals when damaging enemy champions. On activation, he dashes in a direction."),
-                        )
-                      ],
-                    ),
-                  ],
+                AbilitySpells(
+                  spellName: decodeData['data'][champ]['spells'][2]['name'],
+                  spellImage: decodeData['data'][champ]['spells'][2]['image']
+                      ['full'],
+                  spellDesc: decodeData['data'][champ]['spells'][2]
+                      ['description'],
                 ),
                 Divider(
                   thickness: 2,
                   indent: 30,
                   endIndent: 30,
                 ),
-                Column(
-                  children: [
-                    Text('World Ender'),
-                    Row(
-                      children: [
-                        Expanded(
-                          flex: 1,
-                          child: Image(
-                            image: AssetImage(
-                                'resources/images/champion/spell/AatroxR.png'),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 4,
-                          child: Text(
-                              "Aatrox unleashes his demonic form, fearing nearby enemy minions and gaining attack damage, increased healing, and movement speed. If he gets a takedown, this effect is extended."),
-                        )
-                      ],
-                    ),
-                  ],
+                AbilitySpells(
+                  spellName: decodeData['data'][champ]['spells'][3]['name'],
+                  spellImage: decodeData['data'][champ]['spells'][3]['image']
+                      ['full'],
+                  spellDesc: decodeData['data'][champ]['spells'][3]
+                      ['description'],
                 ),
                 Divider(
                   thickness: 2,
