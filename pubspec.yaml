@@ -50,6 +50,7 @@ flutter:
     - resources/images/item/
     - resources/images/champion/passive/
     - resources/images/champion/spell/
+    - resources/images/Roles/
     - lib/JSON/championFull.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
