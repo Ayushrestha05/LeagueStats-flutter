@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:league_stats_flutter/Components/champion_data.dart';
 import 'package:league_stats_flutter/Screens/champion_grid.dart';
 import 'package:league_stats_flutter/Screens/summoner_details.dart';
+import 'package:league_stats_flutter/Components/networking.dart';
 
 class SearchPage extends StatefulWidget {
   static final String id = 'search_page';
@@ -98,14 +99,15 @@ class _SearchPageState extends State<SearchPage> {
                 ),
                 Expanded(
                   child: TextField(
-                    onSubmitted: (value) {
-                      print(value);
+                    onSubmitted: (value) async {
+                      var data = await Networking()
+                          .getSummonerDetails(selectedRegion, value);
                       Navigator.push(
                         context,
                         MaterialPageRoute(
                           builder: (context) => Summoner(
-                            selectedRegion: selectedRegion,
-                            summonerName: value,
+                            summonerData: data,
+                            summonerRegion: selectedRegion,
                           ),
                         ),
                       );
