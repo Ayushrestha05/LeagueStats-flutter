@@ -5,4 +5,9 @@ class ChampionData {
     var map = await rootBundle.loadString('lib/JSON/championFull.json');
     return map;
   }
+
+  Future<String> item() async {
+    var itemMap = await rootBundle.loadString('lib/JSON/item.json');
+    return itemMap;
+  }
 }
