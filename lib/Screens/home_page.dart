@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:league_stats_flutter/Screens/champion_grid.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:league_stats_flutter/Components/champion_data.dart';
 
 class HomePage extends StatefulWidget {
   static final String id = 'homepage';
@@ -53,30 +55,48 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-          Container(
-            margin: EdgeInsets.only(left: 20, right: 20),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Color(0xFF2C5C94),
-            ),
-            height: 50,
-            child: Center(
-              child: Text(
-                'Champions',
+          RawMaterialButton(
+            onPressed: () async {
+              var data = await ChampionData().data();
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ChampionGrid(
+                    data: data,
+                  ),
+                ),
+              );
+            },
+            child: Container(
+              margin: EdgeInsets.only(left: 20, right: 20),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Color(0xFF2C5C94),
+              ),
+              height: 50,
+              child: Center(
+                child: Text(
+                  'Champions',
+                ),
               ),
             ),
           ),
-          Container(
-            margin: EdgeInsets.only(left: 20, right: 20, top: 20),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(10),
-              color: Color(0xFF2C5C94),
-            ),
-            height: 50,
-            child: Center(
-              child: Text(
-                'Items',
-                textAlign: TextAlign.center,
+          RawMaterialButton(
+            onPressed: () {
+              print('Pressed on Items');
+            },
+            child: Container(
+              margin: EdgeInsets.only(left: 20, right: 20, top: 20),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(10),
+                color: Color(0xFF2C5C94),
+              ),
+              height: 50,
+              child: Center(
+                child: Text(
+                  'Items',
+                  textAlign: TextAlign.center,
+                ),
               ),
             ),
           ),
