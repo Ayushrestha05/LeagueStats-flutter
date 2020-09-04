@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:league_stats_flutter/Screens/champion_detail.dart';
 
 class ChampionGrid extends StatefulWidget {
+  static final String id = 'champion_grid';
   final data;
   ChampionGrid({this.data});
 
@@ -21,7 +22,19 @@ class _ChampionGridState extends State<ChampionGrid> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            Image(
+              image: NetworkImage(
+                'http://ddragon.leagueoflegends.com/cdn/img/champion/splash/Aatrox_0.jpg',
+              ),
+              fit: BoxFit.fill,
+            ),
+          ],
+        ),
+      ),
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
@@ -41,7 +54,6 @@ class _ChampionGridState extends State<ChampionGrid> {
 
   List<Widget> gridData() {
     var decodeData = jsonDecode(widget.data);
-    print(decodeData['data'].keys);
     List<Widget> gridList = [];
     for (var i in decodeData['data'].keys) {
       gridList.add(
