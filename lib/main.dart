@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:league_stats_flutter/Screens/champion_detail.dart';
-import 'package:league_stats_flutter/Screens/search_page.dart';
+import 'package:league_stats_flutter/Screens/champion_grid.dart';
+import 'package:league_stats_flutter/Screens/home_page.dart';
 
 void main() {
   runApp(MyApp());
@@ -21,10 +22,11 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Color(0xFF151723),
         primaryColor: Color(0xFFF08080),
       ),
-      initialRoute: SearchPage.id,
+      initialRoute: HomePage.id,
       routes: {
-        SearchPage.id: (context) => SearchPage(),
+        HomePage.id: (context) => HomePage(),
         ChampDetail.id: (context) => ChampDetail(),
+        ChampionGrid.id: (context) => ChampionGrid(),
       },
     );
   }
