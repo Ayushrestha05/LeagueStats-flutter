@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:league_stats_flutter/Screens/champion_grid.dart';
+import 'package:league_stats_flutter/Screens/item_grid.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:league_stats_flutter/Components/champion_data.dart';
 
@@ -81,12 +82,24 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
+          SizedBox(
+            height: 20,
+          ),
           RawMaterialButton(
-            onPressed: () {
+            onPressed: () async {
               print('Pressed on Items');
+              var data = await ChampionData().item();
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ItemGrid(
+                    data: data,
+                  ),
+                ),
+              );
             },
             child: Container(
-              margin: EdgeInsets.only(left: 20, right: 20, top: 20),
+              margin: EdgeInsets.only(left: 20, right: 20),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 color: Color(0xFF2C5C94),
