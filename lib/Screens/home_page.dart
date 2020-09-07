@@ -47,12 +47,14 @@ class _HomePageState extends State<HomePage> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Container(
-            margin: EdgeInsets.only(top: 20),
-            height: 200,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage('resources/images/LOL_logo.png'),
+          Expanded(
+            child: Container(
+              margin: EdgeInsets.only(top: 20),
+              height: 200,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('resources/images/LOL_logo.png'),
+                ),
               ),
             ),
           ),
@@ -149,6 +151,9 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ],
+          ),
+          SizedBox(
+            height: 10,
           ),
         ],
       ),
