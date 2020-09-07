@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:league_stats_flutter/Screens/item_detail.dart';
 
 class ItemGrid extends StatefulWidget {
   final data;
@@ -36,10 +37,17 @@ class _ItemGridState extends State<ItemGrid> {
     var decodeData = jsonDecode(widget.data);
     List<Widget> itemList = [];
     for (var i in decodeData['data'].keys) {
-      print(i);
       itemList.add(
         RawMaterialButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ItemDetails(
+                          data: widget.data,
+                          selectedItem: i,
+                        )));
+          },
           child: Column(
             children: [
               Container(
