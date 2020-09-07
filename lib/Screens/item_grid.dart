@@ -16,8 +16,15 @@ class _ItemGridState extends State<ItemGrid> {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(),
+          SliverToBoxAdapter(
+            child: SizedBox(
+              height: 20,
+            ),
+          ),
           SliverGrid.count(
-            crossAxisCount: 3,
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+            crossAxisCount: 4,
             children: itemGrid(),
           )
         ],
@@ -30,6 +37,26 @@ class _ItemGridState extends State<ItemGrid> {
     List<Widget> itemList = [];
     for (var i in decodeData['data'].keys) {
       print(i);
+      itemList.add(
+        RawMaterialButton(
+          onPressed: () {},
+          child: Column(
+            children: [
+              Container(
+                child: Image(
+                  image: AssetImage('resources/images/item/$i.png'),
+                ),
+              ),
+              Expanded(
+                child: Text(
+                  decodeData['data'][i]['name'],
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ],
+          ),
+        ),
+      );
     }
     return itemList;
   }
